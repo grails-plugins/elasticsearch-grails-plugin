@@ -26,7 +26,7 @@ jobs:
         id: release_version
         run: echo ::set-output name=release_version::${GITHUB_REF:11}
       - name: Run pre-release
-        uses: micronaut-projects/github-actions/pre-release@master
+        uses: grails/github-actions/pre-release@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate secring file
@@ -53,7 +53,7 @@ jobs:
         with:
           arguments: docs
       - name: Export Gradle Properties
-        uses: micronaut-projects/github-actions/export-gradle-properties@master
+        uses: grails/github-actions/export-gradle-properties@main
       - name: Publish to Github Pages
         if: steps.docs.outcome == 'success'
         uses: ./.github/actions/github-pages-deploy-action
@@ -69,7 +69,7 @@ jobs:
           VERSION: ${{ steps.release_version.outputs.release_version }}
       - name: Run post-release
         if: success()
-        uses: micronaut-projects/github-actions/post-release@master
+        uses: grails/github-actions/post-release@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
